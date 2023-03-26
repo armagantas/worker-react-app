@@ -5,12 +5,23 @@ import Card from "../UI/Card";
 const AddWorker = () => {
   const [enteredWorkerName, setEnteredWorkerName] = useState("");
   const [enteredWage, setEnteredWage] = useState("");
+  const minimumWage = 5000;
 
   const addWorkerHandler = (e) => {
     e.preventDefault();
+    if (
+      enteredWorkerName.trim().length === 0 ||
+      enteredWage.trim().length === 0
+    ) {
+      return;
+    }
+
+    if (+enteredWage < minimumWage) {
+      return;
+    }
     setEnteredWorkerName("");
     setEnteredWage("");
-    console.log(enteredWage, enteredWorkerName);
+    console.log(enteredWorkerName, enteredWage);
   };
   return (
     <Card className="mt-10">
@@ -37,7 +48,7 @@ const AddWorker = () => {
           onChange={(e) => setEnteredWage(e.target.value)}
           value={enteredWage}
         />
-        <Button className="mt-2 bg-blue-600" type="button">
+        <Button className="mt-2 bg-blue-600" type="submit">
           Add
         </Button>
       </form>
